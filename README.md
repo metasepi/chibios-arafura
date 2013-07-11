@@ -1,6 +1,7 @@
-# Snatch ChibiOS/RT using [Ajhc](http://ajhc.metasepi.org/)
+# Snatch [ChibiOS/RT](http://www.chibios.org/) using [Ajhc](http://ajhc.metasepi.org/)
 
-Let's try to rewrite ChibiOS/RT using Haskell and [Ajhc](http://ajhc.metasepi.org/) compiler.
+Let's try to rewrite [ChibiOS/RT](http://www.chibios.org/)
+using Haskell and [Ajhc](http://ajhc.metasepi.org/) compiler.
 
 ## Before start
 
