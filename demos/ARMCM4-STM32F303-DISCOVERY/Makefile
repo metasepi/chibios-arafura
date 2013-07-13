@@ -122,6 +122,29 @@ INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 ##############################################################################
 
 ##############################################################################
+# Haskell defines
+#
+
+HSDIR   = build/haskell
+HSCSRC  += $(HSDIR)/rts/gc_jgc.c $(HSDIR)/rts/jhc_rts.c $(HSDIR)/rts/stableptr.c
+HSCSRC  += $(HSDIR)/rts/rts_support.c $(HSDIR)/rts/conc.c $(HSDIR)/rts/conc_custom.c
+CSRC    += $(HSDIR)/main_code.c $(HSCSRC)
+INCDIR  += $(HSDIR)
+USE_OPT += -std=gnu99
+USE_OPT += -DNDEBUG -D_JHC_GC=_JHC_GC_JGC -D_JHC_STANDALONE=0
+USE_OPT += -D_LITTLE_ENDIAN
+USE_OPT += -D_JHC_ARM_STAY_IN_THUMB_MODE
+USE_OPT += -D_JHC_JGC_STACKGROW=16 -D_JHC_JGC_LIMITED_NUM_MEGABLOCK=3
+USE_OPT += -D_JHC_JGC_BLOCK_SHIFT=8 -D_JHC_JGC_MEGABLOCK_SHIFT=13
+USE_OPT += -D_JHC_JGC_GC_STACK_SHIFT=8 -D_JHC_JGC_LIMITED_NUM_GC_STACK=2
+USE_OPT += -D_JHC_JGC_NAIVEGC -D_JHC_JGC_SAVING_MALLOC_HEAP
+USE_OPT += -D_JHC_CONC=_JHC_CONC_CUSTOM
+
+#
+# Haskell defines
+##############################################################################
+
+##############################################################################
 # Compiler settings
 #
 
@@ -221,6 +244,24 @@ endif
 
 include $(CHIBIOS)/os/ports/GCC/ARMCMx/rules.mk
 
+##############################################################################
+# Haskell code depends
+#
+
+$(HSCSRC): $(HSDIR)/main_code.c
+
+$(HSDIR)/main_code.c: hs_src/Main.hs
+	mkdir -p $(HSDIR)
+	ajhc -fffi --tdir=$(HSDIR) -C --include=hs_src $<
+
+#
+# Haskell code depends
+##############################################################################
+
+##############################################################################
+# For debugger
+#
+
 gdbwrite: build/ch.elf
 	@echo '################################################'
 	@echo '##### Use me after running "sudo st-util". #####'
@@ -232,3 +273,7 @@ gdbattach: build/ch.elf
 	@echo '##### Use me after running "sudo st-util". #####'
 	@echo '################################################'
 	$(GDB) -x gdbattach.boot build/ch.elf
+
+#
+# For debugger
+##############################################################################

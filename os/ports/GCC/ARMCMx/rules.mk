@@ -93,6 +93,8 @@ else
   LDFLAGS  += -mno-thumb-interwork
 endif
 
+LDFLAGS += -Wl,--defsym,jhc_zeroAddress=0
+
 # Generate dependency information
 CFLAGS   += -MD -MP -MF .dep/$(@F).d
 CPPFLAGS += -MD -MP -MF .dep/$(@F).d
