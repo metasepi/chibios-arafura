@@ -83,7 +83,8 @@ CSRC = $(PORTSRC) \
        $(HALSRC) \
        $(PLATFORMSRC) \
        $(BOARDSRC) \
-       main.c
+       main.c \
+       dummy4jhc.c
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
@@ -130,7 +131,7 @@ HSCSRC  += $(HSDIR)/rts/gc_jgc.c $(HSDIR)/rts/jhc_rts.c $(HSDIR)/rts/stableptr.c
 HSCSRC  += $(HSDIR)/rts/rts_support.c $(HSDIR)/rts/conc.c $(HSDIR)/rts/conc_custom.c
 CSRC    += $(HSDIR)/main_code.c $(HSCSRC)
 INCDIR  += $(HSDIR)
-USE_OPT += -std=gnu99
+USE_OPT += -std=gnu99 -ffreestanding -nostdlib
 USE_OPT += -DNDEBUG -D_JHC_GC=_JHC_GC_JGC -D_JHC_STANDALONE=0
 USE_OPT += -D_LITTLE_ENDIAN
 USE_OPT += -D_JHC_ARM_STAY_IN_THUMB_MODE
@@ -248,7 +249,7 @@ include $(CHIBIOS)/os/ports/GCC/ARMCMx/rules.mk
 # Haskell code depends
 #
 
-$(HSCSRC): $(HSDIR)/main_code.c
+$(HSCSRC) dummy4jhc.c: $(HSDIR)/main_code.c
 
 $(HSDIR)/main_code.c: hs_src/Main.hs
 	mkdir -p $(HSDIR)

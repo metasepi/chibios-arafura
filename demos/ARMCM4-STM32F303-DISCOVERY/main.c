@@ -54,11 +54,12 @@ static msg_t Thread1(void *arg) {
   }
 }
 
+
+
 /*
  * Application entry point.
  */
 int main(void) {
-
   /*
    * System initializations.
    * - HAL initialization, this also initializes the configured device drivers
@@ -67,7 +68,7 @@ int main(void) {
    *   RTOS is active.
    */
   halInit();
-  chSysInit();
+  chSysInit(); /* Use Alloc API following line. */
 
   /*
    * Activates the serial driver 1 using the driver default configuration.
@@ -81,6 +82,15 @@ int main(void) {
    * Creates the example thread.
    */
   chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
+
+  { /* Init Ajhc RTS (Haskell) */
+    int hsargc = 1;
+    char *hsargv = "q";
+    char **hsargvp = &hsargv;
+
+    hs_init(&hsargc, &hsargvp);
+    _amain();
+  }
 
   /*
    * Normal main() thread activity, in this demo it does nothing except
