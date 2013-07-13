@@ -36,7 +36,7 @@ using Haskell and [Ajhc](http://ajhc.metasepi.org/) compiler.
 ## How to build
 
     $ git clone https://github.com/metasepi/chibios-arafura.git
-    $ chibios-arafura/demos/ARMCM4-STM32F303-DISCOVERY
+    $ cd chibios-arafura/demos/ARMCM4-STM32F303-DISCOVERY/
     $ make
 
 ## How to write firmware
