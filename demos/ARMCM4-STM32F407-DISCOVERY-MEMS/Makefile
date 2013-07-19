@@ -145,6 +145,7 @@ AS   = $(TRGT)gcc -x assembler-with-cpp
 OD   = $(TRGT)objdump
 HEX  = $(CP) -O ihex
 BIN  = $(CP) -O binary
+GDB  = $(TRGT)gdb
 
 # ARM-specific options here
 AOPT =
@@ -223,3 +224,23 @@ ifeq ($(USE_FWLIB),yes)
 endif
 
 include $(CHIBIOS)/os/ports/GCC/ARMCMx/rules.mk
+
+##############################################################################
+# For debugger
+#
+
+gdbwrite: build/ch.elf
+	@echo '################################################'
+	@echo '##### Use me after running "sudo st-util". #####'
+	@echo '################################################'
+	$(GDB) -x gdbwrite.boot build/ch.elf
+
+gdbattach: build/ch.elf
+	@echo '################################################'
+	@echo '##### Use me after running "sudo st-util". #####'
+	@echo '################################################'
+	$(GDB) -x gdbattach.boot build/ch.elf
+
+#
+# For debugger
+##############################################################################
