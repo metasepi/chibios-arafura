@@ -6,7 +6,7 @@ before_install:
   - cat /proc/meminfo
   - cat /etc/apt/sources.list
   - sudo apt-get -qq update
-  - sudo apt-get -qq -y install locales haskell-platform cpphs gcc wget xz-utils libghc-temporary-dev libghc-haskeline-dev libghc-utf8-string-dev libghc-hssyck-dev libghc-test-framework-th-dev libghc-test-framework-hunit-dev libghc-test-framework-quickcheck2-dev libghc-uniplate-dev
+  - sudo apt-get -qq -y install locales libwww-perl haskell-platform cpphs gcc wget xz-utils libghc-temporary-dev libghc-haskeline-dev libghc-utf8-string-dev libghc-hssyck-dev libghc-test-framework-th-dev libghc-test-framework-hunit-dev libghc-test-framework-quickcheck2-dev libghc-uniplate-dev
   - cabal update
   - cabal install ajhc
   - wget http://files.metasepi.org/ajhc/sat_ubuntu1204_64bit.tar.xz
