@@ -19,7 +19,7 @@ before_install:
   - ajhc --version
   - arm-none-eabi-gcc --version
 script:
-  - make -C demos/ARMCM4-STM32F303-DISCOVERY
+  - cd demos/ARMCM4-STM32F303-DISCOVERY && make
   - make -C demos/ARMCM4-STM32F407-DISCOVERY
   - ls -lR demos/ARMCM4-STM32F303-DISCOVERY
 after_script:
