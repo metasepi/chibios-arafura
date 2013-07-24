@@ -132,6 +132,7 @@ HSCSRC  += $(HSDIR)/rts/rts_support.c $(HSDIR)/rts/conc.c $(HSDIR)/rts/conc_cust
 CSRC    += $(HSDIR)/main_code.c $(HSCSRC)
 INCDIR  += $(HSDIR)
 USE_OPT += -std=gnu99 -ffreestanding -nostdlib
+USE_OPT += -Wno-unused-parameter -fno-strict-aliasing -D_GNU_SOURCE
 USE_OPT += -DNDEBUG -D_JHC_GC=_JHC_GC_JGC -D_JHC_STANDALONE=0
 USE_OPT += -D_LITTLE_ENDIAN
 USE_OPT += -D_JHC_ARM_STAY_IN_THUMB_MODE
