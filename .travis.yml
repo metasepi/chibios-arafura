@@ -15,7 +15,7 @@ before_install:
   - git fetch --tags
 script:
   - tar xf sat_ubuntu1204_64bit.tar.xz
-  - export PATH=`pwd`/sat/bin:$PATH
+  - export PATH=`pwd`/sat/bin:$HOME/.cabal/bin:$PATH
   - echo $PATH
   - which arm-none-eabi-gcc
   - arm-none-eabi-gcc --version
