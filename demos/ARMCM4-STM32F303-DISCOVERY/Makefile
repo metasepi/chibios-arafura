@@ -250,7 +250,7 @@ include $(CHIBIOS)/os/ports/GCC/ARMCMx/rules.mk
 # Haskell code depends
 #
 
-$(HSCSRC) dummy4jhc.c: $(HSDIR)/main_code.c
+$(HSCSRC)/dummy4jhc.c: $(HSDIR)/main_code.c
 
 $(HSDIR)/main_code.c: hs_src/Main.hs
 	mkdir -p $(HSDIR)
