@@ -126,10 +126,11 @@ INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 # Haskell defines
 #
 
-HSDIR   = build/haskell
+HSDIR   = build_haskell
 HSCSRC  += $(HSDIR)/rts/gc_jgc.c $(HSDIR)/rts/jhc_rts.c $(HSDIR)/rts/stableptr.c
 HSCSRC  += $(HSDIR)/rts/rts_support.c $(HSDIR)/rts/conc.c $(HSDIR)/rts/conc_custom.c
-CSRC    += $(HSDIR)/main_code.c $(HSCSRC)
+HSCSRC  += $(HSDIR)/main_code.c
+CSRC    += $(HSCSRC)
 INCDIR  += $(HSDIR)
 USE_OPT += -std=gnu99 -ffreestanding -nostdlib
 USE_OPT += -Wno-unused-parameter -fno-strict-aliasing -D_GNU_SOURCE
@@ -250,9 +251,9 @@ include $(CHIBIOS)/os/ports/GCC/ARMCMx/rules.mk
 # Haskell code depends
 #
 
-$(HSCSRC)/dummy4jhc.c: $(HSDIR)/main_code.c
+$(CSRC): $(HSDIR)/jhc_rts_header.h
 
-$(HSDIR)/main_code.c: hs_src/Main.hs
+$(HSDIR)/jhc_rts_header.h: hs_src/Main.hs
 	mkdir -p $(HSDIR)
 	ajhc -fffi --tdir=$(HSDIR) -C --include=hs_src $<
 
