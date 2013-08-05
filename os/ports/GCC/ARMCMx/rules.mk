@@ -211,7 +211,7 @@ endif
 
 clean:
 	@echo Cleaning
-	-rm -fR .dep $(BUILDDIR) build_haskell
+	-rm -fR .dep $(BUILDDIR)
 	@echo Done
 
 #
