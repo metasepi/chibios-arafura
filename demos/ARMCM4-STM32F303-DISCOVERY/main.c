@@ -20,6 +20,7 @@
 #include "jhc_rts_header.h"
 
 extern void malloc_init(void);
+extern void forkOS_createThread_init(void);
 
 /*
  * This is a periodic thread that does absolutely nothing except flashing LEDs.
@@ -92,6 +93,8 @@ int main(void) {
     char **hsargvp = &hsargv;
 
     malloc_init();
+    forkOS_createThread_init();
+
     hs_init(&hsargc, &hsargvp);
     _amain();
   }
