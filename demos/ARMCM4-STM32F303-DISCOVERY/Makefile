@@ -2,12 +2,12 @@ TRGT  = arm-none-eabi-
 GDB   = $(TRGT)gdb
 HSDIR = build_haskell
 
-all: $(HSDIR)/jhc_rts_header.h
+all: $(HSDIR)/hs_main.c
 	make -f forc.mk
 
-$(HSDIR)/jhc_rts_header.h: hs_src/Main.hs
+$(HSDIR)/hs_main.c: hs_src/Main.hs
 	mkdir -p $(HSDIR)
-	ajhc -fffi --tdir=$(HSDIR) -C --include=hs_src $<
+	ajhc -fffi --tdir=$(HSDIR) -C --include=hs_src -o $@ $<
 
 clean:
 	rm -rf build_haskell

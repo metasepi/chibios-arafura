@@ -22,6 +22,7 @@
 extern void malloc_init(void);
 extern void forkOS_createThread_init(void);
 
+#if 0
 /*
  * This is a periodic thread that does absolutely nothing except flashing LEDs.
  */
@@ -57,7 +58,7 @@ static msg_t Thread1(void *arg) {
     palClearPad(GPIOE, GPIOE_LED4_BLUE);
   }
 }
-
+#endif /* 0 */
 
 
 /*
@@ -82,10 +83,12 @@ int main(void) {
   palSetPadMode(GPIOA, 9, PAL_MODE_ALTERNATE(7));
   palSetPadMode(GPIOA, 10, PAL_MODE_ALTERNATE(7));
 
+#if 0
   /*
    * Creates the example thread.
    */
   chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
+#endif /* 0 */
 
   { /* Init Ajhc RTS (Haskell) */
     int hsargc = 1;

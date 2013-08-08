@@ -17,6 +17,17 @@ void free(void *ptr) {
 	chHeapFree(ptr);
 }
 
+void *realloc(void *optr, size_t size)
+{
+	void *nptr = malloc(size);
+
+	if (NULL != optr) {
+		// bcopy(optr, nptr, size); // xxx
+		free(optr);
+	}
+	return nptr;
+}
+
 void abort() {
 	for (;;);
 }

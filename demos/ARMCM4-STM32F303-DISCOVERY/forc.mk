@@ -129,7 +129,7 @@ INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 HSDIR   = build_haskell
 HSCSRC  += $(HSDIR)/rts/gc_jgc.c $(HSDIR)/rts/jhc_rts.c $(HSDIR)/rts/stableptr.c
 HSCSRC  += $(HSDIR)/rts/rts_support.c $(HSDIR)/rts/conc.c $(HSDIR)/rts/conc_custom.c
-HSCSRC  += $(HSDIR)/main_code.c
+HSCSRC  += $(HSDIR)/hs_main.c
 CSRC    += $(HSCSRC)
 INCDIR  += $(HSDIR)
 USE_OPT += -std=gnu99 -ffreestanding -nostdlib
