@@ -1,4 +1,4 @@
-# Snatch [ChibiOS/RT](http://www.chibios.org/) using [Ajhc](http://ajhc.metasepi.org/)
+# Snatch [ChibiOS/RT](http://www.chibios.org/) using [Ajhc](http://ajhc.metasepi.org/) [![Build Status](https://travis-ci.org/metasepi/chibios-arafura.png)](https://travis-ci.org/metasepi/chibios-arafura)
 
 Let's try to rewrite [ChibiOS/RT](http://www.chibios.org/)
 using Haskell and [Ajhc](http://ajhc.metasepi.org/) compiler.
