@@ -19,4 +19,4 @@ blinkLedLoop leds sleep = forever $ sequence_ dos
 main :: IO ()
 main = do mapM_ ledOff $ ledGroupA ++ ledGroupB
           forkOS $ blinkLedLoop ledGroupB 50
-          blinkLedLoop ledGroupA 70
+          blinkLedLoop ledGroupA 170
