@@ -1,0 +1,7 @@
+*.o
+*.a
+*~
+demos/*/.dep/
+demos/*/build/
+demos/*/build_haskell/
+ext/lwip/

@@ -65,15 +65,16 @@ PROJECT = ch
 
 # Imported source files and paths
 CHIBIOS = ../..
-include $(CHIBIOS)/boards/ST_STM32F3_DISCOVERY/board.mk
-include $(CHIBIOS)/os/hal/platforms/STM32F30x/platform.mk
+include $(CHIBIOS)/boards/ST_STM32F4_DISCOVERY/board.mk
+include $(CHIBIOS)/os/hal/platforms/STM32F4xx/platform.mk
 include $(CHIBIOS)/os/hal/hal.mk
-include $(CHIBIOS)/os/ports/GCC/ARMCMx/STM32F3xx/port.mk
+include $(CHIBIOS)/os/ports/GCC/ARMCMx/STM32F4xx/port.mk
 include $(CHIBIOS)/os/kernel/kernel.mk
 include $(CHIBIOS)/test/test.mk
 
 # Define linker script file here
-LDSCRIPT= $(PORTLD)/STM32F303xC.ld
+LDSCRIPT= $(PORTLD)/STM32F407xG.ld
+#LDSCRIPT= $(PORTLD)/STM32F407xG_CCM.ld
 
 # C sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
@@ -83,6 +84,8 @@ CSRC = $(PORTSRC) \
        $(HALSRC) \
        $(PLATFORMSRC) \
        $(BOARDSRC) \
+       $(CHIBIOS)/os/various/devices_lib/accel/lis302dl.c \
+       $(CHIBIOS)/os/various/chprintf.c \
        main.c
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
@@ -141,6 +144,7 @@ AS   = $(TRGT)gcc -x assembler-with-cpp
 OD   = $(TRGT)objdump
 HEX  = $(CP) -O ihex
 BIN  = $(CP) -O binary
+GDB  = $(TRGT)gdb
 
 # ARM-specific options here
 AOPT =
@@ -219,3 +223,23 @@ ifeq ($(USE_FWLIB),yes)
 endif
 
 include $(CHIBIOS)/os/ports/GCC/ARMCMx/rules.mk
+
+##############################################################################
+# For debugger
+#
+
+gdbwrite: build/ch.elf
+	@echo '################################################'
+	@echo '##### Use me after running "sudo st-util". #####'
+	@echo '################################################'
+	$(GDB) -x gdbwrite.boot build/ch.elf
+
+gdbattach: build/ch.elf
+	@echo '################################################'
+	@echo '##### Use me after running "sudo st-util". #####'
+	@echo '################################################'
+	$(GDB) -x gdbattach.boot build/ch.elf
+
+#
+# For debugger
+##############################################################################
