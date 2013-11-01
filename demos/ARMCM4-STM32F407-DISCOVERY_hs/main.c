@@ -18,6 +18,10 @@
 #include "hal.h"
 #include "test.h"
 
+#include "conc_custom.h"
+
+extern void malloc_init(void);
+
 static void pwmpcb(PWMDriver *pwmp);
 static void adccb(ADCDriver *adcp, adcsample_t *buffer, size_t n);
 static void spicb(SPIDriver *spip);
@@ -176,6 +180,19 @@ int main(void) {
    */
   halInit();
   chSysInit();
+
+  { /* Init Ajhc RTS (Haskell) */
+    int hsargc = 1;
+    char *hsargv = "q";
+    char **hsargvp = &hsargv;
+
+    malloc_init();
+    forkOS_createThread_init();
+
+    hs_init(&hsargc, &hsargvp);
+    _amain();
+//  hs_exit();
+  }
 
   /*
    * Activates the serial driver 2 using the driver default configuration.
