@@ -22,6 +22,10 @@
 
 #include "web/web.h"
 
+#include "conc_custom.h"
+
+extern void malloc_init(void);
+
 /*
  * Green LED blinker thread, times are in milliseconds.
  */
@@ -36,6 +40,7 @@ static msg_t Thread1(void *arg) {
     palSetPad(GPIOF, GPIOF_STAT1);
     chThdSleepMilliseconds(500);
   }
+  return (msg_t)TRUE;
 }
 
 /*
@@ -52,6 +57,19 @@ int main(void) {
    */
   halInit();
   chSysInit();
+
+  { /* Init Ajhc RTS (Haskell) */
+    int hsargc = 1;
+    char *hsargv = "q";
+    char **hsargvp = &hsargv;
+
+    malloc_init();
+    forkOS_createThread_init();
+
+    hs_init(&hsargc, &hsargvp);
+    _amain();
+    hs_exit();
+  }
 
   /*
    * Activates the serial driver 6 using the driver default configuration.
