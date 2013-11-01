@@ -153,16 +153,15 @@ static void spicb(SPIDriver *spip) {
  * This is a periodic thread that does absolutely nothing except flashing
  * a LED.
  */
+extern void blinkOrange(void);
+
 static WORKING_AREA(waThread1, 128);
 static msg_t Thread1(void *arg) {
 
   (void)arg;
   chRegSetThreadName("blinker");
   while (TRUE) {
-    palSetPad(GPIOD, GPIOD_LED3);       /* Orange.  */
-    chThdSleepMilliseconds(500);
-    palClearPad(GPIOD, GPIOD_LED3);     /* Orange.  */
-    chThdSleepMilliseconds(500);
+	  blinkOrange(); // Haskell
   }
 }
 
