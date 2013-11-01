@@ -153,16 +153,12 @@ static void spicb(SPIDriver *spip) {
  * This is a periodic thread that does absolutely nothing except flashing
  * a LED.
  */
-extern void blinkOrange(void);
-
 static WORKING_AREA(waThread1, 128);
+extern void threadBlinkOrange(void);
 static msg_t Thread1(void *arg) {
 
   (void)arg;
-  chRegSetThreadName("blinker");
-  while (TRUE) {
-	  blinkOrange(); // Haskell
-  }
+  threadBlinkOrange();
 }
 
 /*
@@ -179,19 +175,6 @@ int main(void) {
    */
   halInit();
   chSysInit();
-
-  { /* Init Ajhc RTS (Haskell) */
-    int hsargc = 1;
-    char *hsargv = "q";
-    char **hsargvp = &hsargv;
-
-    malloc_init();
-    forkOS_createThread_init();
-
-    hs_init(&hsargc, &hsargvp);
-    _amain();
-//  hs_exit();
-  }
 
   /*
    * Activates the serial driver 2 using the driver default configuration.
@@ -241,6 +224,18 @@ int main(void) {
   palSetPadMode(GPIOD, GPIOD_LED4, PAL_MODE_ALTERNATE(2));  /* Green.   */
   palSetPadMode(GPIOD, GPIOD_LED6, PAL_MODE_ALTERNATE(2));  /* Blue.    */
 
+  { /* Init Ajhc RTS (Haskell) */
+    int hsargc = 1;
+    char *hsargv = "q";
+    char **hsargvp = &hsargv;
+
+    malloc_init();
+    forkOS_createThread_init();
+
+    hs_init(&hsargc, &hsargvp);
+    _amain();
+//  hs_exit();
+  }
   /*
    * Creates the example thread.
    */
