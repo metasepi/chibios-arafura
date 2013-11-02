@@ -150,18 +150,6 @@ static void spicb(SPIDriver *spip) {
 }
 
 /*
- * This is a periodic thread that does absolutely nothing except flashing
- * a LED.
- */
-static WORKING_AREA(waThread1, 128);
-extern void threadBlinkOrange(void);
-static msg_t Thread1(void *arg) {
-
-  (void)arg;
-  threadBlinkOrange();
-}
-
-/*
  * Application entry point.
  */
 int main(void) {
@@ -236,10 +224,6 @@ int main(void) {
     _amain();
 //  hs_exit();
   }
-  /*
-   * Creates the example thread.
-   */
-  chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
 
   /*
    * Normal main() thread activity, in this demo it does nothing except

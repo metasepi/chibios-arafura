@@ -1,10 +1,14 @@
 import ChibiOSWrap
 
 import Control.Monad
+import Control.Concurrent
 import Foreign.C.String
 
+{--
+  chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
+--}
 main :: IO ()
-main = return ()
+main = void $ forkOS threadBlinkOrange
 
 {--
     palSetPad(GPIOD, GPIOD_LED3);       /* Orange.  */
@@ -20,13 +24,16 @@ blinkOrange = do
   c_chThdSleepMilliseconds 500
 
 {--
+/*
+ * This is a periodic thread that does absolutely nothing except flashing
+ * a LED.
+ */
   chRegSetThreadName("blinker");
   while (TRUE) {
 	  blinkOrange();
   }
 --}
-foreign export ccall "threadBlinkOrange" threadBlinkOrange :: IO ()
 threadBlinkOrange :: IO ()
 threadBlinkOrange = do
-  newCString "blinker" >>= c_chRegSetThreadName
+--  newCString "blinker" >>= c_chRegSetThreadName
   forever blinkOrange

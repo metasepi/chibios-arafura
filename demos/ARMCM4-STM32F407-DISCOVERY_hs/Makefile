@@ -9,7 +9,7 @@ all: $(HSBUILD)/hs_main.c
 
 $(HSBUILD)/hs_main.c: $(HSSRC)
 	mkdir -p $(HSBUILD)
-	ajhc -fffi --tdir=$(HSBUILD) -C --include=hs_src -o $@ $(HSDIR)/Main.hs
+	ajhc -fffi -fcustomthread --tdir=$(HSBUILD) -C --include=hs_src -o $@ $(HSDIR)/Main.hs
 
 clean:
 	rm -rf build_haskell
